@@ -50,7 +50,7 @@ app.get("/auth/failed", (req, res) => {
 
 mongoose.set('strictQuery', true);
 mongoose
-    .connect('mongodb+srv://chamalkaMarasinghe:8tqhT1RE8APcKZv6@cluster0.tjh57ad.mongodb.net/recipe_app?retryWrites=true&w=majority')
+    .connect(process.env.MONGO_URL)
     .then(() => {
         app.listen(3001, () => {console.log(`server running on port ${3001}`);})
     })
