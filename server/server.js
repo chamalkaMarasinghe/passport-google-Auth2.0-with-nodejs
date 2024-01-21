@@ -26,11 +26,15 @@ const isLoggedIn = (req, res, next) => {
 };
 
 app.get("/", (req, res) => {
-    res.send("<a href='/auth/google'>Sign in with google<a/>");
+    res.send("<a href='/auth/google/signin'>Sign in with google<a/> <hr/> <a href='/auth/google/signup'>Sign up with google<a/>");
 });
 
-app.get("/auth/google", 
-    passport.authenticate("google", {scope :['email', 'profile']})
+app.get("/auth/google/signin", 
+    passport.authenticate("google", {scope :['email', 'profile'], state: 'signin'})
+);
+
+app.get("/auth/google/signup", 
+    passport.authenticate("google", {scope :['email', 'profile'], state: 'signup'})
 );
 
 app.get("/google/callback",
