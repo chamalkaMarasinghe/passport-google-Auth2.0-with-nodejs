@@ -63,5 +63,6 @@ mongoose
  * client id : 
  * client secret : 
  * git config --global --replace-all user.email "chamalkamarasinghe11@gmail.com"
- * git config --global user.name "chamalkaMarasinghe" 
+ * git config --global user.name "chamalkaMarasinghe"
+ * A 
  **/
