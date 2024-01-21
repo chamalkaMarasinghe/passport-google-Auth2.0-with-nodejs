@@ -14,14 +14,30 @@ passport.use(new GoogleStrategy({
         // User.findOrCreate({ googleId: profile.id }, function (err, user) {
         //     return done(err, user);
         // });
-        GoogleUserSchema.findOne({googleId: profile.id}).then((user) => {
-            if(!user){
-                const newGoogleUser = GoogleUserSchema.create({googleId: profile.id, name : profile.displayName, email : profile.email});
-                return done(null, newGoogleUser);
-            }else{
-                return done (null, user);
-            }
-        })
+
+        const action = request.query.state;
+
+        if(action == "signup"){
+            const newGoogleUser = GoogleUserSchema.create({googleId: profile.id, name : profile.displayName, email : profile.email});
+            return done(null, newGoogleUser);
+        }else if(action == "signin"){
+            GoogleUserSchema.findOne({googleId: profile.id}).then((user) => {
+                if(!user){
+                    return done(null, null);
+                }else{
+                    return done (null, user);
+                }
+            });
+        }
+
+        // GoogleUserSchema.findOne({googleId: profile.id}).then((user) => {
+        //     if(!user){
+        //         const newGoogleUser = GoogleUserSchema.create({googleId: profile.id, name : profile.displayName, email : profile.email});
+        //         return done(null, newGoogleUser);
+        //     }else{
+        //         return done (null, user);
+        //     }
+        // })
     }
 ));
 
